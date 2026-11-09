@@ -1,77 +1,356 @@
-og-ai-director-pro/
-├── vercel.json
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-├── postcss.config.js
-├── index.html
-├── .env.example
-├── .gitignore
-└── src/
-    ├── main.jsx
-    ├── index.css
-    └── App.jsx
-2. Isi setiap berkas secara terpisah:
-vercel.json (hanya isi JSON ini):
-
-{
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
-package.json (hanya isi JSON dependensi):
-
-{
-  "name": "og-ai-director-pro",
-  "private": true,
-  "version": "2.5.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "lucide-react": "^0.344.0",
-    "firebase": "^10.8.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "vite": "^5.1.4"
-  }
-}
-index.html (hanya isi HTML container):
-
 <!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OG AI Director Pro</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#070b14] text-gray-100 overflow-x-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OG AI Director Pro — Next-Gen AI Production Environment</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2306b6d4'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: {
+              DEFAULT: '#0e1321',
+              dim: '#0e1321',
+              bright: '#343948',
+              lowest: '#090e1c',
+              low: '#161b2a',
+              high: '#1d2335'
+            },
+            cyan: {
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2'
+            }
+          },
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #070b14;
+      color: #f1f5f9;
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #164e63;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #0891b2;
+    }
+    .bg-grid-tech {
+      background-image: radial-gradient(rgba(6, 182, 212, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-[#070b14] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- TOP HEADER -->
+  <header class="h-14 border-b border-cyan-950/60 bg-[#090e1c]/90 backdrop-blur sticky top-0 z-50 px-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-amber-500 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-950">
+        <div class="w-full h-full bg-[#090e1c] rounded-[7px] flex items-center justify-center">
+          <i data-lucide="clapperboard" class="w-4 h-4 text-cyan-400"></i>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold tracking-tight text-white font-mono text-sm">OG AI DIRECTOR PRO</span>
+          <span class="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-800/60 px-1.5 py-0.2 rounded font-mono">v2.5 STANDALONE</span>
+        </div>
+        <p class="text-[10px] text-slate-400">Next-Gen AI Cinematic Production Environment</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <div class="relative hidden sm:block">
+        <i data-lucide="key" class="w-3.5 h-3.5 text-cyan-500/70 absolute left-2.5 top-2.5"></i>
+        <input 
+          id="globalApiKey" 
+          type="password" 
+          placeholder="Gemini API Key..." 
+          class="bg-[#10172a] border border-cyan-900/60 text-xs rounded-lg pl-8 pr-3 py-1.5 w-52 text-slate-200 focus:outline-none focus:border-cyan-400 transition"
+        />
+      </div>
+      <button onclick="saveApiKey()" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 font-medium transition">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+        <span class="hidden md:inline">Simpan Key</span>
+      </button>
+      <div class="h-4 w-px bg-slate-800"></div>
+      <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Vercel Ready
+      </span>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="flex-1 flex overflow-hidden">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-64 border-r border-cyan-950/60 bg-[#090e1c] flex flex-col shrink-0">
+      <div class="p-3 border-b border-cyan-950/40">
+        <div class="text-[10px] font-mono uppercase text-slate-500 font-semibold tracking-wider px-2">Studio Modules</div>
+      </div>
+      
+      <nav class="p-2 space-y-1 overflow-y-auto custom-scrollbar flex-1 text-xs">
+        <button onclick="switchTab('workspace')" id="tab-workspace" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-800/40">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Workspace Home</span>
+        </button>
+        <button onclick="switchTab('affiliate')" id="tab-affiliate" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60">
+          <i data-lucide="megaphone" class="w-4 h-4"></i>
+          <span>Affiliate Prompt Gen</span>
+        </button>
+        <button onclick="switchTab('storyboard')" id="tab-storyboard" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60">
+          <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          <span>Storyboard Grid (6-Shot)</span>
+        </button>
+        <button onclick="switchTab('general')" id="tab-general" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60">
+          <i data-lucide="sliders" class="w-4 h-4"></i>
+          <span>General Prompt Studio</span>
+        </button>
+        <button onclick="switchTab('admin')" id="tab-admin" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60">
+          <i data-lucide="shield-alert" class="w-4 h-4"></i>
+          <span>Portal Sutradara & Keys</span>
+        </button>
+      </nav>
+
+      <div class="p-3 border-t border-cyan-950/60 bg-[#070b14]">
+        <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+          <span>Engine Status</span>
+          <span class="text-emerald-400 font-mono">STANDALONE ACTIVE</span>
+        </div>
+        <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+          <div class="bg-gradient-to-r from-cyan-500 to-amber-500 h-full w-full"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEW -->
+    <main class="flex-1 overflow-y-auto custom-scrollbar p-6 bg-[#070b14] bg-grid-tech">
+      <!-- WORKSPACE PANEL -->
+      <section id="panel-workspace" class="space-y-6">
+        <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-surface to-amber-950/30 border border-cyan-900/40 relative overflow-hidden">
+          <div class="max-w-2xl">
+            <span class="text-xs font-mono text-cyan-400 tracking-wider uppercase font-semibold">Director Command Deck</span>
+            <h1 class="text-2xl font-bold mt-1 text-white tracking-tight">OG AI Director Pro Studio Workspace</h1>
+            <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+              Selamat datang di lingkungan terpadu pembuatan prompt video AI, storyboard multi-sudut, dan alur sutradara konten digital.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-4">
+              <button onclick="switchTab('affiliate')" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-4 py-2 rounded-lg text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="zap" class="w-4 h-4"></i>
+                Buka Affiliate Generator
+              </button>
+              <button onclick="switchTab('storyboard')" class="bg-[#161b2a] hover:bg-[#1f263b] text-cyan-300 border border-cyan-900/60 font-semibold px-4 py-2 rounded-lg text-xs flex items-center gap-1.5 transition">
+                <i data-lucide="clapperboard" class="w-4 h-4"></i>
+                Rakit Storyboard Film
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-[#0e1321] border border-cyan-950 hover:border-cyan-800/60 transition">
+            <div class="w-9 h-9 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 mb-3">
+              <i data-lucide="camera" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-semibold text-sm text-white">22+ Kamera & Gerakan</h3>
+            <p class="text-xs text-slate-400 mt-1">Preset kamera mulai dari POV Selfie, Orbit 360, FPV Sweep hingga Dutch Angle.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[#0e1321] border border-cyan-950 hover:border-cyan-800/60 transition">
+            <div class="w-9 h-9 rounded-lg bg-amber-950/60 flex items-center justify-center text-amber-400 mb-3">
+              <i data-lucide="film" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-semibold text-sm text-white">Storyboard 6-Shot Matrix</h3>
+            <p class="text-xs text-slate-400 mt-1">Generasi otomatis alur visual Hook, Masalah, Solusi, sampai Call to Action.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[#0e1321] border border-cyan-950 hover:border-cyan-800/60 transition">
+            <div class="w-9 h-9 rounded-lg bg-emerald-950/60 flex items-center justify-center text-emerald-400 mb-3">
+              <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-semibold text-sm text-white">100% Client-Side Standalone</h3>
+            <p class="text-xs text-slate-400 mt-1">Bebas error dependensi, langsung online begitu diunggah ke Vercel.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AFFILIATE PANEL -->
+      <section id="panel-affiliate" class="space-y-6 hidden">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="megaphone" class="w-5 h-5 text-cyan-400"></i>
+          Affiliate Video Prompt Generator
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-4 bg-[#0e1321] p-5 rounded-xl border border-cyan-950">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Nama Produk</label>
+              <input id="affProductName" type="text" value="Earphone TWS ANC CyberSound Pro" class="w-full bg-[#161b2a] border border-cyan-900/50 rounded-lg px-3 py-2 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Target Niche</label>
+              <input id="affTargetAudience" type="text" value="Gen Z Gamers & Remote Worker Kafe" class="w-full bg-[#161b2a] border border-cyan-900/50 rounded-lg px-3 py-2 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Selling Points</label>
+              <textarea id="affKeyFeatures" rows="3" class="w-full bg-[#161b2a] border border-cyan-900/50 rounded-lg px-3 py-2 text-xs text-white">Baterai tahan 48 jam, Active Noise Cancelling 45dB, desain transparan neon cyberpunk.</textarea>
+            </div>
+            <button onclick="generateAffiliatePrompt()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-lg text-xs flex items-center justify-center gap-2 transition">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              Generate Prompt Affiliate
+            </button>
+          </div>
+          <div class="bg-[#0e1321] p-5 rounded-xl border border-cyan-950 flex flex-col">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-mono text-cyan-400">PROMPT HASIL GENERASI</span>
+              <button onclick="copyOutput('affiliateOutput')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
+              </button>
+            </div>
+            <textarea id="affiliateOutput" readonly class="flex-1 w-full bg-[#161b2a] border border-cyan-900/40 rounded-lg p-3 text-xs font-mono text-slate-300 min-h-[220px] custom-scrollbar"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- STORYBOARD PANEL -->
+      <section id="panel-storyboard" class="space-y-6 hidden">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="layout-grid" class="w-5 h-5 text-amber-400"></i>
+          Storyboard 6-Shot Matrix
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="bg-[#0e1321] border border-cyan-950 rounded-xl p-4">
+            <span class="font-mono text-cyan-400 font-bold text-xs">SHOT 01: THE HOOK</span>
+            <p class="text-xs text-white mt-2 font-medium">POV Extreme Close-Up</p>
+            <p class="text-[11px] text-slate-400 mt-1">Ekspresi terkejut melihat kebisingan kafe seketika hilang saat mengaktifkan perangkat.</p>
+          </div>
+          <div class="bg-[#0e1321] border border-cyan-950 rounded-xl p-4">
+            <span class="font-mono text-cyan-400 font-bold text-xs">SHOT 02: PROBLEM</span>
+            <p class="text-xs text-white mt-2 font-medium">Medium Handheld Shake</p>
+            <p class="text-[11px] text-slate-400 mt-1">Kabel earphone lama kusut dan mati daya saat meeting penting.</p>
+          </div>
+          <div class="bg-[#0e1321] border border-amber-950 rounded-xl p-4">
+            <span class="font-mono text-amber-400 font-bold text-xs">SHOT 03: PRODUCT REVEAL</span>
+            <p class="text-xs text-white mt-2 font-medium">Orbit 360 Cyber Lighting</p>
+            <p class="text-[11px] text-slate-400 mt-1">Case transparan futuristik terbuka elegan dengan rim light cyan menyala.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN & KEYS PANEL -->
+      <section id="panel-admin" class="space-y-6 hidden">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-5 h-5 text-cyan-400"></i>
+          Portal Sutradara & Konfigurasi API
+        </h2>
+        <div class="bg-[#0e1321] p-5 rounded-xl border border-cyan-950 max-w-xl space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Google Gemini API Key</label>
+            <input id="adminApiKey" type="password" placeholder="AIzaSy..." class="w-full bg-[#161b2a] border border-cyan-900/50 rounded-lg px-3 py-2 text-xs text-white" />
+          </div>
+          <div class="flex gap-2">
+            <button onclick="saveAdminApiKey()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs">Simpan ke Browser</button>
+            <button onclick="clearApiKey()" class="bg-rose-500/10 text-rose-400 border border-rose-500/30 px-3 py-2 rounded-lg text-xs">Hapus Key</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function switchTab(tabId) {
+      ['workspace', 'affiliate', 'storyboard', 'general', 'admin'].forEach(id => {
+        const panel = document.getElementById(`panel-${id}`);
+        const btn = document.getElementById(`tab-${id}`);
+        if (panel) panel.classList.toggle('hidden', id !== tabId);
+        if (btn) {
+          if (id === tabId) {
+            btn.className = 'nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-800/40';
+          } else {
+            btn.className = 'nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900/60';
+          }
+        }
+      });
+      lucide.createIcons();
+    }
+
+    function saveApiKey() {
+      const key = document.getElementById('globalApiKey').value.trim();
+      if (key) {
+        localStorage.setItem('GEMINI_API_KEY', key);
+        alert('API Key berhasil disimpan!');
+      }
+    }
+
+    function saveAdminApiKey() {
+      const key = document.getElementById('adminApiKey').value.trim();
+      if (key) {
+        localStorage.setItem('GEMINI_API_KEY', key);
+        document.getElementById('globalApiKey').value = key;
+        alert('API Key berhasil disimpan!');
+      }
+    }
+
+    function clearApiKey() {
+      localStorage.removeItem('GEMINI_API_KEY');
+      document.getElementById('globalApiKey').value = '';
+      document.getElementById('adminApiKey').value = '';
+      alert('API Key dihapus.');
+    }
+
+    window.onload = function() {
+      const savedKey = localStorage.getItem('GEMINI_API_KEY');
+      if (savedKey) {
+        if (document.getElementById('globalApiKey')) document.getElementById('globalApiKey').value = savedKey;
+        if (document.getElementById('adminApiKey')) document.getElementById('adminApiKey').value = savedKey;
+      }
+    };
+
+    function generateAffiliatePrompt() {
+      const product = document.getElementById('affProductName').value;
+      const target = document.getElementById('affTargetAudience').value;
+      const features = document.getElementById('affKeyFeatures').value;
+      document.getElementById('affiliateOutput').value = 
+        `[OG AI DIRECTOR PRO — CINEMATIC AFFILIATE PROMPT]\n` +
+        `Product: ${product}\nTarget: ${target}\nHighlights: ${features}\n\n` +
+        `"Hyper-realistic 4K commercial shot of ${product}. Dynamic lighting, cyberpunk accent glow, cinematic bokeh. 8k resolution, color-graded on Sony FX3 cinema profile --ar 9:16 --v 6.1"`;
+    }
+
+    function copyOutput(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.value || el.innerText).then(() => {
+        alert('Teks berhasil disalin!');
+      });
+    }
+  </script>
+</body>
 </html>
-src/main.jsx:
-
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
