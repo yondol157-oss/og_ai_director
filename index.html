@@ -1,17 +1,28 @@
 og-ai-director-pro/
+├── vercel.json
 ├── package.json
-├── index.html
 ├── vite.config.js
 ├── tailwind.config.js
+├── postcss.config.js
+├── index.html
+├── .env.example
+├── .gitignore
 └── src/
     ├── main.jsx
-    ├── App.jsx
-    └── index.css
-📄 1. package.json
+    ├── index.css
+    └── App.jsx
+📄 2. vercel.json (Root Folder)
+{
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+📄 3. package.json (Root Folder)
 {
   "name": "og-ai-director-pro",
   "private": true,
-  "version": "4.8.2",
+  "version": "2.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,38 +30,20 @@ og-ai-director-pro/
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^10.8.0",
-    "lucide-react": "^0.344.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.344.0",
+    "firebase": "^10.8.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3",
-    "vite": "^5.4.2"
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.4"
   }
 }
-📄 2. index.html
-<!DOCTYPE html>
-<html lang="id" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OG AI Director Pro - Next-Gen AI Production Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#070b14] text-gray-100 font-['Space_Grotesk',sans-serif] overflow-x-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-📄 3. vite.config.js
+📄 4. vite.config.js (Root Folder)
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -59,55 +52,85 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false
   }
 });
-📄 4. tailwind.config.js
+📄 5. tailwind.config.js (Root Folder)
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        surface: '#0e1321',
-        'surface-dim': '#0e1321',
-        'surface-bright': '#343948',
-        'surface-container-lowest': '#090e1c',
-        'surface-container-low': '#161b2a',
-        primary: '#06b6d4',
+        surface: {
+          DEFAULT: '#0e1321',
+          dim: '#0e1321',
+          bright: '#343948',
+          lowest: '#090e1c',
+          low: '#161b2a',
+          high: '#1d2335'
+        }
       },
       fontFamily: {
-        sans: ['"Space Grotesk"', 'sans-serif'],
+        sans: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
       }
     },
   },
   plugins: [],
 }
-📄 5. src/index.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer utilities {
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #164e63;
-    border-radius: 9999px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #0891b2;
-  }
+📄 6. postcss.config.js (Root Folder)
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
 }
-📄 6. src/main.jsx
+📄 7. index.html (Root Folder)
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2306b6d4'><path d='M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OG AI Director Pro — Next-Gen AI Production Environment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#070b14] text-gray-100 overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+📄 8. .env.example (Root Folder)
+# Dapatkan Gemini API Key gratis di https://aistudio.google.com/
+VITE_GOOGLE_API_KEY=AIzaSy...your-gemini-api-key-here
+
+# Firebase Configuration (Opsional)
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+📄 9. .gitignore (Root Folder)
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.local
+.env.production
+.DS_Store
+.vscode
+📄 10. src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
@@ -118,3 +141,280 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+📄 11. src/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #070b14;
+    color: #f1f5f9;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #164e63;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #0891b2;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-in {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.zoom-in {
+  animation-name: zoomIn;
+}
+📄 12. src/App.jsx
+Kode lengkap src/App.jsx adalah kode React monolitik yang telah Anda berikan di awal dengan integrasi import.meta.env.VITE_GOOGLE_API_KEY:
+
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { 
+  Megaphone, Film, User, LayoutGrid, Camera, 
+  ChevronLeft, ChevronRight, Menu, X, Plus, 
+  Download, Copy, Trash2, Edit2, Loader2, Image as ImageIcon, Settings,
+  ArrowRight, ShieldAlert, ShieldCheck, Users, Activity, Key, Mail, Sparkles, Home,
+  Clapperboard, Compass, Sliders, Check, RefreshCw, Layers, MonitorPlay, Zap, Eye,
+  Rocket, FileText, Route, Play, HelpCircle, BookOpen, MessageSquare, Video
+} from 'lucide-react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, setDoc, collection, onSnapshot } from 'firebase/firestore';
+
+const AI_CONFIG = {
+  TEXT_MODEL: "gemini-1.5-flash", 
+  IMAGE_MODEL: "imagen-3.0-generate-002", 
+  API_KEY: import.meta.env?.VITE_GOOGLE_API_KEY || ""
+};
+
+const getApiKey = () => {
+  if (typeof window !== 'undefined' && window.GOOGLE_API_KEY) {
+    return window.GOOGLE_API_KEY;
+  }
+  return import.meta.env?.VITE_GOOGLE_API_KEY || AI_CONFIG.API_KEY;
+};
+
+let app, auth, db, appId = 'og-ai-director-pro';
+let firebaseReady = false;
+
+try {
+  const firebaseConfig = {
+    apiKey: import.meta.env?.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env?.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env?.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env?.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env?.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env?.VITE_FIREBASE_APP_ID
+  };
+  
+  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    firebaseReady = true;
+  }
+} catch (e) {
+  console.warn("Firebase initialize status:", e);
+}
+
+const TECH_GRID_SVG = `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M60 0 L0 0 0 60' fill='none' stroke='rgba(6,182,212,0.04)' stroke-width='1'/%3E%3Ccircle cx='60' cy='0' r='1' fill='rgba(245,158,11,0.1)'/%3E%3Ccircle cx='0' cy='60' r='1' fill='rgba(6,182,212,0.1)'/%3E%3C/svg%3E`;
+
+const OPTIONS = {
+  cameraAngles: [
+    "Eye Level", "Low Angle Heroic", "High Angle Dynamic", "Dutch Angle Cinema", "Over-the-Shoulder",
+    "Close-Up Emotive", "Extreme Close-Up Macro", "Medium Shot Standard", "Medium Close-Up Portrait", "Full Body Shot Studio", 
+    "Bird's Eye View", "Worm's Eye View", "Three-Quarter Editorial", "Profile/Side Silhouette", 
+    "POV Smartphone Selfie", "POV First Person Hands", "Mirror Selfie Lifestyle", "Top-Down Flat Lay Minimalist", 
+    "Low Angle Streetstyle", "Wide Establishing Architectural", "Two-Shot Dialogue", "Handheld Shaky Raw"
+  ],
+  affiliateMovements: [
+    'Static Locked-Off Master', 'Smooth Pan Kiri-Kanan', 'Tilt Vertikal Dinamis',
+    'Dolly In Dramatic', 'Dolly Out Reveal', 'Tracking Follow Shot',
+    'Handheld Organic Raw', 'Steadicam Gliding Pro', 'Slow Push-In Climax',
+    'Slow Pull-Out Ambient', 'Orbit 360 Cinematic', 'Snap Zoom In Punchy', 
+    'Rack Focus Subjek-ke-Produk', 'FPV Drone Sweep', 'Whip Pan Transition'
+  ],
+  expressions: [
+    "Tersenyum Natural & Ramah", "Tersenyum Percaya Diri", "Excited & Sangat Antusias", "Elegan, Tenang & Mewah",
+    "Playful & Energik", "Fokus Profesional Serius", "Terkejut Senang / Wow Factor", "Santai Casual Weekend", 
+    "Meyakinkan (Persuasive Pitch)", "Mengedip / Charismatic Wink", "Tersipu Manis", 
+    "Berpikir Analitis", "Kharismatik Tegas", "Empatik Mendalam", "Terpesona Mengagumi"
+  ],
+  aspectRatios: ["9:16", "16:9", "3:4", "4:3", "1:1"],
+  imageStyles: [
+    "Photorealistic Cinema (Sony FX3 35mm f/1.4)", 
+    "High-End Fashion Editorial Look", 
+    "Commercial Studio Lighting Clean", 
+    "Anime Kyotopr Modern Shinkai", 
+    "3D Hyper-Render Pixar/Disney 4K", 
+    "Cyberpunk Neon Noir 2077", 
+    "Warm Vintage Analog 35mm Film", 
+    "Minimalist Tech Architectural",
+    "Dark Dramatic Chiaroscuro"
+  ],
+  poses: [
+    "Berdiri Tegap Santai", "Menyilangkan Tangan Berwibawa", "Menunjukkan Produk ke Arah Kamera", "Melambai Hangat Menyapa",
+    "Duduk Santai di Sofa Lounge", "Selfie Mirror Pose Estetik", "Berpikir dengan Jari di Dagu", "Pose Melangkah Percaya Diri",
+    "Menyandarkan Bahu ke Dinding Minimalis", "Memegang Produk Dua Tangan Halus", "POV Tangan Sedang Unboxing", "Tatapan Tajam Misterius Menembus Kamera"
+  ]
+};
+
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    if (file.size > 20 * 1024 * 1024) {
+      reject(new Error("Ukuran berkas maksimal 20MB"));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      const mimeType = result.split(';')[0].split(':')[1];
+      const data = result.split(',')[1];
+      resolve({ mimeType, data, previewUrl: result });
+    };
+    reader.onerror = error => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
+
+const downloadImage = async (dataUrl, filename) => {
+  try {
+    const response = await fetch(dataUrl);
+    const blob = await response.blob();
+    const blobUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    link.href = blobUrl;
+    link.download = filename || `og-ai-director-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    }, 120);
+  } catch (err) {
+    console.error("Gagal mengunduh gambar:", err);
+  }
+};
+
+const copyToClipboard = (text) => {
+  try {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed'; 
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const success = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return success;
+  } catch (err) {
+    console.error("Gagal menyalin draf:", err);
+    return false;
+  }
+};
+
+const callGeminiText = async (prompt, imageInputs = []) => {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error("API Key belum disetel. Tambahkan VITE_GOOGLE_API_KEY di file .env atau Vercel Environment Variables");
+  }
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${AI_CONFIG.TEXT_MODEL}:generateContent?key=${apiKey}`;
+  const strictSystemInstruction = "CRITICAL INSTRUCTION: Output directly the requested script, concepts, or JSON without any conversational filler, introductory remarks, greetings, or self-referential titles. Start directly with the content. Ensure 100% strict relevance and absolute adherence to the provided topic/niche.";
+  const combinedPrompt = `${strictSystemInstruction}\n\n${prompt}`;
+  const parts = [{ text: combinedPrompt }];
+  imageInputs.forEach((img) => {
+    if (img && img.data) {
+      parts.push({
+        inlineData: { mimeType: img.mimeType, data: img.data }
+      });
+    }
+  });
+  const payload = {
+    contents: [{ parts: parts }],
+    generationConfig: prompt.includes("JSON_OUTPUT_REQUIRED") ? { responseMimeType: "application/json" } : {}
+  };
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!response.ok) throw new Error(`Gemini Text Error: ${response.status}`);
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, respon teks belum dapat digenerate.";
+};
+
+const callGeminiImage = async (prompt, imageInputs = [], aspectRatio = "1:1") => {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error("API Key belum disetel. Tambahkan VITE_GOOGLE_API_KEY di file .env atau Vercel Environment Variables");
+  }
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${AI_CONFIG.IMAGE_MODEL}:predict?key=${apiKey}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      instances: [{ prompt: `${prompt}. Aspect ratio ${aspectRatio}. 8k, photorealistic, cinematic.` }],
+      parameters: { sampleCount: 1, aspectRatio: aspectRatio }
+    })
+  });
+  if (!response.ok) {
+    return `data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='100%25' height='100%25' fill='%230a0f1d'/%3E%3Ctext x='50%25' y='50%25' font-family='sans-serif' font-size='20' fill='%2306b6d4' text-anchor='middle' dominant-baseline='middle'%3ERendered Shot: ${encodeURIComponent(prompt.substring(0, 40))}...%3C/text%3E%3C/svg%3E`;
+  }
+  const data = await response.json();
+  const b64 = data.predictions?.[0]?.bytesBase64Encoded;
+  return b64 ? `data:image/png;base64,${b64}` : null;
+};
+
+const parseJsonSafe = (rawText, fallbackValue = []) => {
+  try {
+    let clean = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+    let firstB = clean.indexOf('[');
+    let lastB = clean.lastIndexOf(']');
+    if (firstB !== -1 && lastB !== -1 && lastB > firstB) {
+      clean = clean.substring(firstB, lastB + 1);
+    }
+    return JSON.parse(clean);
+  } catch (err) {
+    console.warn("JSON parse fallback triggered:", err);
+    return fallbackValue;
+  }
+};
+
+// ... Gunakan sisa kode komponen dari input asli Anda (ImageUploadSlot, FormGroup, Input, Select, Textarea, Toggle, Button, GeneratingOverlay, GuideModal, WorkspaceHome, CharacterSheetStudio, MultiCharacterNarrativeStudio, ImageStudio, AffiliatePromptGenerator, StoryboardGenerator, GeneralPromptStudio, AIInfluencer, MasterPipeline, AdminDashboard, dan export default App).
+🚀 Cara Push ke GitHub & Deploy ke Vercel:
+Di terminal folder proyek Anda:
+git init
+git add .
+git commit -m "feat: initial commit OG AI Director Pro"
+git branch -M main
+git remote add origin https://github.com/USERNAME-ANDA/og-ai-director-pro.git
+git push -u origin main
